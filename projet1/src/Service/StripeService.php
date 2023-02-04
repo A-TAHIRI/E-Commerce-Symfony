@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Service;
 
 use App\Entity\Order;
-use App\Entity\OrderDetail;
+
 use App\Entity\Product;
 
 class StripeService
@@ -30,7 +30,7 @@ class StripeService
 
         return \Stripe\PaymentIntent::create([
             'amount' => $product->getPrice() ,
-            'currency' => OrderDetail::DEVISE,
+            'currency' => Order::DEVISE,
             'payment_method_types' => ['card']
         ]);
     }
@@ -76,7 +76,7 @@ class StripeService
     {
         return $this->paiement(
             $product->getPrice() ,
-            OrderDetail::DEVISE,
+            Order::DEVISE,
             $product->getName(),
             $stripeParameter
         );

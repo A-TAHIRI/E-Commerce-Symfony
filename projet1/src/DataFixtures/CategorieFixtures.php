@@ -4,13 +4,14 @@ namespace App\DataFixtures;
 
 use App\Entity\Categorie;
 
-use App\Entity\Trait\SlugTrait;
+use App\Entity\Traits\SlugTrait;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
 class CategorieFixtures extends Fixture
 {
      private $counter=1;
+     private $i=1;
    public function __construct(private SluggerInterface $slugger){
     
    }
@@ -18,16 +19,18 @@ class CategorieFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-         $parent = $this->createCategorie('Informatique',null,$manager);
-         $this->createCategorie('Ordinateurs portables',$parent,$manager);
-         $this->createCategorie('Ecrans',$parent,$manager);
-         $this->createCategorie('Souris',$parent,$manager);
+         $parent = $this->createCategorie('Bijoux',null,$manager);
+         $this->createCategorie('Collier ',$parent,$manager);
+         $this->createCategorie('B.d\'oreille',$parent,$manager);
+         $this->createCategorie('Bracelet',$parent,$manager);
+         $this->createCategorie('Bague',$parent,$manager);
+         $this->createCategorie('B.cheville',$parent,$manager);
 
 
-         $parent = $this->createCategorie('Mode',null,$manager);
-         $this->createCategorie('Homme',$parent,$manager);
-         $this->createCategorie('Femme',$parent,$manager);
-         $this->createCategorie('Enfant',$parent,$manager);
+
+         $parent = $this->createCategorie('Accessoires',null,$manager);
+         $this->createCategorie('Montres',$parent,$manager);
+        
 
 
          $manager->flush();
@@ -38,6 +41,7 @@ class CategorieFixtures extends Fixture
      $categorie = new Categorie();
      $categorie -> setName($name);
      $categorie -> setSlug($this->slugger->slug($categorie->getName())->lower());
+     $categorie->setcategorieOrder($this->i++);
      $categorie-> setParent($parent);
      $manager->persist($categorie);
      $this->addReference('cat-'.$this->counter,$categorie);

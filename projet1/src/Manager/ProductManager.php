@@ -3,10 +3,10 @@
 namespace App\Manager;
 
 use App\Entity\Order;
-use App\Entity\OrderDetail;
+
 use App\Entity\Product;
 use App\Entity\User;
-use App\Services\StripeService;
+use App\Service\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -103,8 +103,8 @@ class ProductManager
         $order->setIdChargeStripe($resource['stripeId']);
         $order->setStripeToken($resource['stripeToken']);
         $order->setStatusStripe($resource['stripeStatus']);
-        $order->setUpdatedAt(new \Datetime());
-        $order->setCreatedAt(new \Datetime());
+        $order->setUpdatedAt(new \DateTimeImmutable());
+        $order->setCreatedAt(new \DateTimeImmutable());
         $this->em->persist($order);
         $this->em->flush();
     }
