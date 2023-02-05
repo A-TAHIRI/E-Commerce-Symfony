@@ -58,7 +58,7 @@ class StripeService
             $payment_intent = \Stripe\PaymentIntent::retrieve($stripeParameter['stripeIntentId']);
         }
 
-        if($stripeParameter['stripeIntentStatus'] === 'succeeded') {
+        if($stripeParameter['stripeIntentStatus'] ==='succeeded') {
             //TODO
         } else {
             $payment_intent->cancel();
