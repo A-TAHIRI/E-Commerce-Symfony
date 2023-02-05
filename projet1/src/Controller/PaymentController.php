@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PaimentController extends AbstractController
+class PaymentController extends AbstractController
 {
     /**
      * @Route("/user/payment/{id}/show", name="payment", methods={"GET", "POST"})
