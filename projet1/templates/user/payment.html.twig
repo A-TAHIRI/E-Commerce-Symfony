@@ -43,21 +43,17 @@
 {% endblock %}
 
 {% block javascripts %}
-	<script>
 
+	<script>
 		{% if app_environement == 'dev' %}
 var stripeToken = "{{ stripe_public_key_test }}";
 {% else %}
-var stripeToken = "{{ stripe_public_key_live }}";{% endif %}
-
-var stripe = Stripe(stripeToken);
+var stripeToken = "{{ stripe_public_key_live }}";{% endif %}var stripe = Stripe(stripeToken);
 var elements = stripe.elements();
 var subscription = "{{ product.id }}";
 var clientSecret = "{{ intentSecret }}";
 var cardholderName = "{{ app.user.lastname }}";
 var cardholderEmail = "{{ app.user.email }}";
-
-console.log('clientSecret', clientSecret);
 
 var styleCustom = {
 base: {
@@ -96,9 +92,7 @@ email: cardholderEmail
 }).then((result) => {
 if (result.error) { // Display error
 } else if ('paymentIntent' in result) {
-console.log('Result : ', result);
 stripeTokenHandler(result.paymentIntent);
-console.log('Result paymentIntent : ', result.paymentIntent);
 }
 })
 });
