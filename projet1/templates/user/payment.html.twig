@@ -13,7 +13,6 @@
 						<form action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment-form">
 							<div class="form-row">
 								<div id="card-elements"></div>
-
 								<script src="https://js.stripe.com/v3/"></script>
 
 								<div id="card-errors" role="alert"></div>
@@ -41,6 +40,7 @@
 		</div>
 	</section>
 {% endblock %}
+
 
 {% block javascripts %}
 
