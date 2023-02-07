@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment
+{% endblock %}
+
+{% block body %}
+	<!-- Icons Grid -->
+	<section class="features-icons bg-light text-center">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="card-body">
+						<form action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment-form">
+							<div class="form-row">
+								<div id="card-elements"></div>
+
+
+								<div id="card-errors" role="alert"></div>
+							</div>
+							<button class="btn btn-primary mt-4">
+								Acheter
+								{{ product.price }}
+								€
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="col">
+					<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+						<img src="{{ asset('build/images/products/mini/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
+						<h3>
+							{{ product.name }}
+						</h3>
+						<p>
+							{{ product.description }}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<script src="{{ asset('build/js/paiment.js') }}" defer></script>
+{% endblock %}
