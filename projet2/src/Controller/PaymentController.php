@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Manager\ProductManager;
+use App\Service\StripeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ class PaymentController extends AbstractController
      * @param Product $product
      * @return Response
      */
+   
     public function payment(Product $product, ProductManager $productManager): Response
     {
         if (!$this->getUser()) {

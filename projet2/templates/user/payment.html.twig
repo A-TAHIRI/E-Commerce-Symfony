@@ -23,6 +23,23 @@
 								€
 							</button>
 						</form>
+
+						{# <form
+																	action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment_form">
+																	<!-- Champs hors paiement -->
+																	<input type="text" name="name" placeholder="Votre nom" required>
+																	<input type="email" name="email" placeholder="Votre email" required>
+											
+																	<!-- Champs pour le paiement -->
+																	<!-- l'attribut data-strip permet d'informer stripe du rôle de chaque input -->
+																	<input type="text" placeholder="Code de carte bleue" data-stripe="number" required> <input type="text" placeholder="MM" data-stripe="exp_month" required>
+																	<input type="text" placeholder="YY" data-stripe="exp_year" required>
+																	<input type="text" placeholder="CVC" data-stripe="cvc" required>
+											
+																	<button type="submit">Acheter{{ product.price }}</button>
+																</form> #}
+
+
 					</div>
 				</div>
 				<div class="col">
@@ -40,9 +57,4 @@
 		</div>
 	</section>
 {% endblock %}
-
-
-{% block javascripts %}
-	<script src="{{ asset('assets/js/v3.js') }}" defer></script>
-	<script src="{{ asset('assets/js/paiment.js') }}" defer></script>
-{% endblock %}
+{% block javascripts %}{% endblock %}

@@ -1,3 +1,9 @@
+
+
+
+
+
+
 if( app_environement == 'dev' ){
 
     var stripeToken = "{{ stripe_public_key_test }}";
