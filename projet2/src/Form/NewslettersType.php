@@ -4,8 +4,9 @@ namespace App\Form;
 
 
 use App\Entity\Newsletters\Newsletters;
+use App\Entity\Newsletters\Categories;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,6 +21,10 @@ class NewslettersType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
+            ->add('categories', EntityType::class, [
+                'class' => Categories::class,
+                'choice_label' => 'name'
+            ])
             ->add('content', CKEditorType::class)
            
             ->add('enregistrer', SubmitType::class)

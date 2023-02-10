@@ -8,7 +8,7 @@ use App\Form\NewslettersType;
 use App\Form\NewslettersUsersType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\Newsletters\NewslettersRepository;
-use App\Service\SendNewsletterService;
+
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,8 +119,7 @@ class NewslettersController extends AbstractController
      */
     public function send(Newsletters $newsletter, MailerInterface $mailer ): Response
     {
-        $users = $newsletter->getUsers();
-
+        $users = $newsletter->getCategories()->getUsers();
         foreach($users as $user){
             if($user->getIsValid()){
                 $email =(New  TemplatedEmail())
@@ -153,9 +152,13 @@ class NewslettersController extends AbstractController
 
         
 
-        $em->remove($user);
-         $em->persist($user);
-          $em->flush();
+        if(count($user->getCategories()) > 1){
+            $user->removeCategory($newsletter->getCategories());
+            $em->persist($user);
+        }else{
+            $em->remove($user);
+        }
+        $em->flush();
 
         $this->addFlash('message', 'Newsletter supprimée');
 

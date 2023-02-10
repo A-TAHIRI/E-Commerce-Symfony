@@ -40,6 +40,13 @@ class Newsletters
     
     private ?bool $is_sent = false;
 
+
+    
+    
+     #[ORM\ManyToOne(targetEntity:Categories::class, inversedBy:"newsletters")]
+     #[ORM\JoinColumn(nullable:false)]
+     
+    private $categories;
    
 
     public function __construct()
@@ -96,6 +103,17 @@ class Newsletters
     public function setIsSent(bool $is_sent): self
     {
         $this->is_sent = $is_sent;
+
+        return $this;
+    }
+    public function getCategories(): ?Categories
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Categories $categories): self
+    {
+        $this->categories = $categories;
 
         return $this;
     }

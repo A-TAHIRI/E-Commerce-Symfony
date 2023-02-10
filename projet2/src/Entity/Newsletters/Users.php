@@ -4,7 +4,8 @@ namespace App\Entity\Newsletters;
 
 use App\Repository\Newsletters\UsersRepository;
 use DateTime;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -41,12 +42,15 @@ class Users
     private ?bool $is_valid = false;
        
     
-   
+     
+    #[ORM\ManyToMany(targetEntity:Categories::class, inversedBy:"users")]
+    
+    private $categories;
 
     public function __construct()
     {
         $this->created_at = new DateTime();
-   
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,5 +109,28 @@ class Users
     }
 
   
+    /**
+     * @return Collection|Categories[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categories $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            // $category->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categories $category): self
+    {
+        $this->categories->removeElement($category);
+        return $this;
+    }
     
 }

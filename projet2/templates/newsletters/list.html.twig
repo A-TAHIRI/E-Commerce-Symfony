@@ -11,7 +11,7 @@
 				<th>ID</th>
 				<th>Titre</th>
 				<th>Date</th>
-
+				<th>Catégorie</th>
 				<th>Inscrits</th>
 				<th>Actions</th>
 			</tr>
@@ -22,8 +22,9 @@
 					<td>{{newsletter.id}}</td>
 					<td>{{newsletter.name}}</td>
 					<td>{{newsletter.createdAt|date}}</td>
+					<td>{{newsletter.categories.name}}</td>
+					<td>{{newsletter.categories.users|length}}</td>
 
-					<td>{{newsletter.users.Id|length}}</td>
 					<td>
 						{% if newsletter.isSent == false %}
 							<a href="{{ path('newsletters_send', {id: newsletter.id}) }}">Envoyer</a>
