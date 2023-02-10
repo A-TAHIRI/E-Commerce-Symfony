@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Newsletters\Newsletters;
 use App\Entity\Newsletters\Users;
-use App\Form\NewslettersType;
-use App\Form\NewslettersUsersType;
+use App\Form\NewslettersFormType;
+use App\Form\NewslettersUsersFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\Newsletters\NewslettersRepository;
 
@@ -28,7 +28,7 @@ class NewslettersController extends AbstractController
     public function index(Request $request,EntityManagerInterface $em, MailerInterface $mailer): Response
     {
         $user = new Users();
-        $form = $this->createForm(NewslettersUsersType::class, $user);
+        $form = $this->createForm(NewslettersUsersFormType::class, $user);
 
         $form->handleRequest($request);
 
@@ -55,7 +55,7 @@ class NewslettersController extends AbstractController
             return $this->redirectToRoute('newsletters_home');
         }
 
-        return $this->render('Newsletters/index.html.twig', [
+        return $this->render('newsletters/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -86,7 +86,7 @@ class NewslettersController extends AbstractController
     public function prepare(Request $request ,EntityManagerInterface $em): Response
     {
         $newsletter = new Newsletters();
-        $form = $this->createForm(NewslettersType::class, $newsletter);
+        $form = $this->createForm(NewslettersFormType::class, $newsletter);
 
         $form->handleRequest($request);
 
