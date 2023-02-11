@@ -6,11 +6,17 @@ use App\Entity\Traits\CreatedAtTrait;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Index;
 use symfony\component\Validator\Constraints as  Assert;
 
+
+
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[ORM\Index(name:"product", columns:["name", "description"], flags:["fulltext"])]
+
 class Product
 {
     use SlugTrait;

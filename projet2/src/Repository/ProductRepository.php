@@ -74,6 +74,23 @@ class ProductRepository extends ServiceEntityRepository
         return $result;
     }
 
+
+
+    public function search($mots ){
+        $query = $this->createQueryBuilder('p');
+      
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(p.name, p.description) AGAINST (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+       
+          
+             
+        
+        return $query->getQuery()->getResult();
+    }
+
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */
