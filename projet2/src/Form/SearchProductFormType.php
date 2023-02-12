@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Categories;
+use App\Entity\Categorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -20,6 +20,14 @@ class SearchProductFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Entrez un ou plusieurs mots-clés'
+                ],
+                'required' => false
+            ])
+            ->add('categories', EntityType::class, [
+                'class' => Categorie::class,
+                'label' => false,
+                'attr' => [
+                    'class' => 'form-control',
                 ],
                 'required' => false
             ])
