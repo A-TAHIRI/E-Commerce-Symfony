@@ -17,69 +17,42 @@ use Symfony\Component\Mailer\MailerInterface;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/admin/newsletters", name="newsletters_")
- */
+
+#[Route('/admin/newsletters', name: 'admin_newsletters_')]
 class NewslettersController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="list")
      */
-    public function index(Request $request,EntityManagerInterface $em, MailerInterface $mailer): Response
+    public function list(NewslettersRepository $newsletters): Response
     {
-        $user = new Users();
-        $form = $this->createForm(NewslettersUsersFormType::class, $user);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $token = hash('sha256', uniqid());
-
-            $user->setValidationToken($token);
-
-            
-            $em->persist($user);
-            $em->flush();
-
-            $email = (new TemplatedEmail())
-                ->from('newsletter@site.fr')
-                ->to($user->getEmail())
-                ->subject('Votre inscription à la newsletter')
-                ->htmlTemplate('emails/inscription.html.twig')
-                ->context(compact('user', 'token'))
-                ;
-
-            $mailer->send($email);
-
-            $this->addFlash('danger', 'Inscription en attente de validation');
-            return $this->redirectToRoute('app_main');
-        }
-
-        return $this->render('admin/newsletters/index.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('admin/newsletters/list.html.twig', [
+            'newsletters' => $newsletters->findAll()
         ]);
     }
+
+
 
     /**
      * @Route("/confirm/{id}/{token}", name="confirm")
      */
-    public function confirm(Users $user,EntityManagerInterface $em, $token): Response
-    {
-        if($user->getValidationToken() != $token){
-            throw $this->createNotFoundException('Page non trouvée');
-        }
+    // public function confirm(Users $user,EntityManagerInterface $em, $token): Response
+    // {
+    //     if($user->getValidationToken() != $token){
+    //         throw $this->createNotFoundException('Page non trouvée');
+    //     }
 
-        $user->setIsValid(true);
-
-        
-        $em->persist($user);
-        $em->flush();
+    //     $user->setIsValid(true);
 
         
-        $this->addFlash('success', 'Compte activé');
+    //     $em->persist($user);
+    //     $em->flush();
 
-        return $this->redirectToRoute('app_main');
-    }
+        
+    //     $this->addFlash('success', 'Compte activé');
+
+    //     return $this->redirectToRoute('app_main');
+    // }
 
     /**
      * @Route("/prepare", name="prepare")
@@ -96,7 +69,7 @@ class NewslettersController extends AbstractController
             $em->persist($newsletter);
             $em->flush();
 
-            return $this->redirectToRoute('newsletters_list');
+            return $this->redirectToRoute('admin_newsletters_list');
         }
 
         return $this->render('admin/newsletters/prepare.html.twig', [
@@ -107,14 +80,7 @@ class NewslettersController extends AbstractController
     /**
      * @Route("/list", name="list")
      */
-    public function list(NewslettersRepository $newsletters): Response
-    {
-        return $this->render('admin/newsletters/list.html.twig', [
-            'newsletters' => $newsletters->findAll()
-        ]);
-    }
-
-
+  
     /**
      * @Route("/send/{id}", name="send")
      */
@@ -139,30 +105,30 @@ class NewslettersController extends AbstractController
         // $em->persist($newsletter);
         // $em->flush();
 
-        return $this->redirectToRoute('newsletters_list');
+        return $this->redirectToRoute('admin_newsletters_list');
     }
 
     /**
      * @Route("/unsubscribe/{id}/{newsletter}/{token}", name="unsubscribe")
      */
-    public function unsubscribe(Users $user, Newsletters $newsletter,EntityManagerInterface $em, $token): Response
-    {
-        if($user->getValidationToken() != $token){
-            throw $this->createNotFoundException('Page non trouvée');
-        }
+    // public function unsubscribe(Users $user, Newsletters $newsletter,EntityManagerInterface $em, $token): Response
+    // {
+    //     if($user->getValidationToken() != $token){
+    //         throw $this->createNotFoundException('Page non trouvée');
+    //     }
 
         
 
-        if(count($user->getCategories()) > 1){
-            $user->removeCategory($newsletter->getCategories());
-            $em->persist($user);
-        }else{
-            $em->remove($user);
-        }
-        $em->flush();
+    //     if(count($user->getCategories()) > 1){
+    //         $user->removeCategory($newsletter->getCategories());
+    //         $em->persist($user);
+    //     }else{
+    //         $em->remove($user);
+    //     }
+    //     $em->flush();
 
-        $this->addFlash('message', 'Newsletter supprimée');
+    //     $this->addFlash('message', 'Newsletter supprimée');
 
-        return $this->redirectToRoute('app_main');
-    }
+    //     return $this->redirectToRoute('app_main');
+    // }
 }

@@ -30,8 +30,14 @@ class NewslettersUsersFormType extends AbstractType
                 ->add('categories', EntityType::class, [
                     'class' => Categories::class,
                     'choice_label' => 'name',
-                     'multiple' => true,
-                      'expanded' => true
+                    'multiple' => true,
+                     'expanded' => true,
+                    'attr'=>[
+                        'class'=>'form-control',
+                      
+                    
+                   
+                    ]
                 ])
 
            

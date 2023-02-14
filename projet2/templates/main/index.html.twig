@@ -3,7 +3,12 @@
 {% endblock %}
 
 {% block body %}
-	{{form(form)}}
+
+	<div class="col-2 " id="col">
+		{{form(form)}}
+		</div>
+
+
 		<p class="gratuite">Livraison gratuite pour les commandes supérieures à 50 €</p>
 		<div class=" container-flid texte-center divvideo ">
 			<div class="row align-items-center">
@@ -43,4 +48,24 @@
 
 
 			</main>
+		{% endblock %}
+
+
+		{% block stylesheets %}
+
+
+			<style>
+
+				#col {
+
+					margin: 5px 1200px;
+
+				}
+				#btn {
+
+					margin-buttom: -100;
+					pading: 0;
+					z-index: 2;
+				}
+			</style>
 		{% endblock %}

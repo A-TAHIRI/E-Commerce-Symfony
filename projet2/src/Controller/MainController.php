@@ -29,7 +29,7 @@ class MainController extends AbstractController
           // On recherche les annonces correspondant aux mots clés
           $products = $productRepository->search(
               $search->get('mots')->getData(),
-              $search->get('categories')->getData(),
+              // $search->get('categories')->getData(),
            
           );
       }

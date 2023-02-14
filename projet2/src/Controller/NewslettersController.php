@@ -84,63 +84,63 @@ class NewslettersController extends AbstractController
     /**
      * @Route("/prepare", name="prepare")
      */
-    public function prepare(Request $request ,EntityManagerInterface $em): Response
-    {
-        $newsletter = new Newsletters();
-        $form = $this->createForm(NewslettersFormType::class, $newsletter);
+    // public function prepare(Request $request ,EntityManagerInterface $em): Response
+    // {
+    //     $newsletter = new Newsletters();
+    //     $form = $this->createForm(NewslettersFormType::class, $newsletter);
 
-        $form->handleRequest($request);
+    //     $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+    //     if($form->isSubmitted() && $form->isValid()){
            
-            $em->persist($newsletter);
-            $em->flush();
+    //         $em->persist($newsletter);
+    //         $em->flush();
 
-            return $this->redirectToRoute('newsletters_list');
-        }
+    //         return $this->redirectToRoute('newsletters_list');
+    //     }
 
-        return $this->render('newsletters/prepare.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
+    //     return $this->render('newsletters/prepare.html.twig', [
+    //         'form' => $form->createView()
+    //     ]);
+    // }
 
     /**
      * @Route("/list", name="list")
      */
-    public function list(NewslettersRepository $newsletters): Response
-    {
-        return $this->render('newsletters/list.html.twig', [
-            'newsletters' => $newsletters->findAll()
-        ]);
-    }
+    // public function list(NewslettersRepository $newsletters): Response
+    // {
+    //     return $this->render('newsletters/list.html.twig', [
+    //         'newsletters' => $newsletters->findAll()
+    //     ]);
+    // }
 
 
     /**
      * @Route("/send/{id}", name="send")
      */
-    public function send(Newsletters $newsletter, MailerInterface $mailer ): Response
-    {
-        $users = $newsletter->getCategories()->getUsers();
-        foreach($users as $user){
-            if($user->getIsValid()){
-                $email =(New  TemplatedEmail())
-                ->from('newsletters@site.fr')
-                ->to ($user->getEmail())
-                ->subject($newsletter->getName())
-                ->htmlTemplate('emails/newsletter.html.twig')
-                ->context(compact('newsletter' ,'user'));
-                $mailer->send($email);
-            }
-        }
+    // public function send(Newsletters $newsletter, MailerInterface $mailer ): Response
+    // {
+    //     $users = $newsletter->getCategories()->getUsers();
+    //     foreach($users as $user){
+    //         if($user->getIsValid()){
+    //             $email =(New  TemplatedEmail())
+    //             ->from('newsletters@site.fr')
+    //             ->to ($user->getEmail())
+    //             ->subject($newsletter->getName())
+    //             ->htmlTemplate('emails/newsletter.html.twig')
+    //             ->context(compact('newsletter' ,'user'));
+    //             $mailer->send($email);
+    //         }
+    //     }
 
-        // $newsletter->setIsSent(true);
+    //     // $newsletter->setIsSent(true);
 
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($newsletter);
-        // $em->flush();
+    //     // $em = $this->getDoctrine()->getManager();
+    //     // $em->persist($newsletter);
+    //     // $em->flush();
 
-        return $this->redirectToRoute('newsletters_list');
-    }
+    //     return $this->redirectToRoute('newsletters_list');
+    // }
 
     /**
      * @Route("/unsubscribe/{id}/{newsletter}/{token}", name="unsubscribe")

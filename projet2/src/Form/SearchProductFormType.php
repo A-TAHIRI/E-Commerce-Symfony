@@ -19,22 +19,23 @@ class SearchProductFormType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Entrez un ou plusieurs mots-clés'
+                    'placeholder' => 'Entrez un mots-clés'
                 ],
                 'required' => false
             ])
-            ->add('categories', EntityType::class, [
-                'class' => Categorie::class,
-                'label' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
-                'required' => false
-            ])
+            // ->add('categories', EntityType::class, [
+            //     'class' => Categorie::class,
+            //     'label' => false,
+            //     'attr' => [
+            //         'class' => 'form-control',
+            //     ],
+            //     'required' => false
+            // ])
             
             ->add('Rechercher', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-secondary',
+                    'id'=> 'btn'
                 ]
             ])
         ;

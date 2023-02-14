@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	<a class="btn btn-info" href="{{path('admin_newsletters_prepare')}}">Ajouter  newsletter</a>
 	<div class="container">
 		<fieldset class="fieldset">
 
@@ -16,6 +17,7 @@
 						<th>Date</th>
 						<th>Catégorie</th>
 						<th>Inscrits</th>
+
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -26,11 +28,12 @@
 							<td>{{newsletter.name}}</td>
 							<td>{{newsletter.createdAt|date}}</td>
 							<td>{{newsletter.categories.name}}</td>
+
 							<td>{{newsletter.categories.users|length}}</td>
 
 							<td>
 								{% if newsletter.isSent == false %}
-									<a href="{{ path('newsletters_send', {id: newsletter.id}) }}" class="btn btn-success">Envoyer</a>
+									<a href="{{ path('admin_newsletters_send', {id: newsletter.id}) }}" class="btn btn-success">Envoyer</a>
 								{% endif %}
 							</td>
 						</tr>

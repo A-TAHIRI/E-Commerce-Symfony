@@ -4,14 +4,19 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1>Ecrivez votre newsletter</h1>
-		{{form_start(form)}}
-		{{form_row(form.name)}}
-		{{form_row(form.categories)}}
-		{{form_row(form.content)}}
 
-		{{form_end(form)}}
+	<div class="container">
+
+		<fieldset>
+			<h1>Ecrivez votre newsletter</h1>
+			{{form_start(form)}}
+			{{form_row(form.name)}}
+			{{form_row(form.categories)}}
+			{{form_row(form.content)}}
+
+			{{form_end(form)}}
+
+		</fieldset>
 
 	</div>
 
