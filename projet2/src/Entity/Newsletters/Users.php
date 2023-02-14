@@ -62,6 +62,10 @@ class Users
     {
         return $this->email;
     }
+    public function __toString()
+    {
+        return $this->email;
+    }
 
     public function setEmail(?string $email): self
     {

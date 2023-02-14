@@ -23,18 +23,20 @@ class CatsExtension extends AbstractController
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
+  
+    
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('cats', [$this, 'getFooter'])
+            new TwigFunction('cats', [$this, 'getForm'],['is_safe'=>['html']])
         ];
     }
 
 
 
-    public function getFooter(Request $request,EntityManagerInterface $em, MailerInterface $mailer)
+    public function getForm(Request $request, MailerInterface $mailer,$form)
     {
         $user = new Users();
     $form = $this->createForm(NewslettersUsersFormType::class, $user);
@@ -47,8 +49,8 @@ class CatsExtension extends AbstractController
         $user->setValidationToken($token);
 
         
-        $em->persist($user);
-        $em->flush();
+       $this-> em->persist($user);
+        $this->em->flush();
 
         $email = (new TemplatedEmail())
             ->from('newsletter@site.fr')
@@ -58,18 +60,14 @@ class CatsExtension extends AbstractController
             ->context(compact('user', 'token'))
             ;
 
-        $mailer->send($email);
+       $mailer->send($email);
 
 
  
-        return $this->redirectToRoute('newsletters_list');
     }
 
     
-    return $this->render('newsletters/prepare.html.twig', [
-        'form' => $form->createView()
-    ]);
-       
-    
+    return $this-> $form->createView();
+     
     }
 }

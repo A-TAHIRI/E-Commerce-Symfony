@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Newsletters\Newsletters;
 use App\Entity\Newsletters\Users;
@@ -18,7 +18,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/newsletters", name="newsletters_")
+ * @Route("/admin/newsletters", name="newsletters_")
  */
 class NewslettersController extends AbstractController
 {
@@ -55,7 +55,7 @@ class NewslettersController extends AbstractController
             return $this->redirectToRoute('app_main');
         }
 
-        return $this->render('newsletters/index.html.twig', [
+        return $this->render('admin/newsletters/index.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -99,7 +99,7 @@ class NewslettersController extends AbstractController
             return $this->redirectToRoute('newsletters_list');
         }
 
-        return $this->render('newsletters/prepare.html.twig', [
+        return $this->render('admin/newsletters/prepare.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -109,7 +109,7 @@ class NewslettersController extends AbstractController
      */
     public function list(NewslettersRepository $newsletters): Response
     {
-        return $this->render('newsletters/list.html.twig', [
+        return $this->render('admin/newsletters/list.html.twig', [
             'newsletters' => $newsletters->findAll()
         ]);
     }

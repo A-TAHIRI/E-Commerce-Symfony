@@ -39,7 +39,7 @@ class NewslettersUsersFormType extends AbstractType
             ->add('je_mabonne', SubmitType::class,[
               
                 'attr' => [
-                    'class' => 'btn',
+                    'class' => 'btn btn-primary',
                    
                 ]
             ])
