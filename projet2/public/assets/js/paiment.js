@@ -2,15 +2,14 @@
 
 
 
+    
+if( app_environement == dev ){
 
-
-if( app_environement == 'dev' ){
-
-    var stripeToken = "{{ stripe_public_key_test }}";
+    var stripeToken = " stripe_public_key_test ";
  }
 
  else {
-var stripeToken = "{{ stripe_public_key_live }}";
+var stripeToken = " stripe_public_key_live ";
 }
 
 

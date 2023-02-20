@@ -2,79 +2,76 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Manager\ProductManager;
-use App\Service\StripeService;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PaymentController extends AbstractController
 {
-    /**
-     * @Route("/user/payment/{id}/show", name="payment", methods={"GET", "POST"})
-     * @param Product $product
-     * @return Response
-     */
-   
-    public function payment(Product $product, ProductManager $productManager): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
 
-        return $this->render('user/payment.html.twig', [
-            'user' => $this->getUser(),
-            'intentSecret' => $productManager->intentSecret($product),
-            'product' => $product
+  
+    
+    #[Route('/payment', name: 'payment')]
+    public function index(): Response
+    {
+        return $this->render('payment/index.html.twig', [
+            'controller_name' => 'PaymentController',
         ]);
     }
 
-    /**
-     * @Route("/user/subscription/{id}/paiement/load", name="subscription_paiement", methods={"GET", "POST"})
-     * @param Product $product
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
-     * @throws \Exception
-     */
-    public function subscription(
-        Product $product,
-        Request $request,
-        ProductManager $productManager
-    ){
-        $user = $this->getUser();
 
-        if($request->getMethod() === "POST") {
-            $resource = $productManager->stripe($_POST, $product);
+    #[Route('/checkout', name: 'checkout')]
+    public function checkout(SessionInterface $session ,$stripeSK): Response
 
-            if(null !== $resource) {
-                $productManager->create_subscription($resource, $product, $user);
+    {
+        
+      
+      
+         
+           
+           
+        Stripe::setApiKey($stripeSK);
 
-                return $this->render('user/reponse.html.twig', [
-                    'product' => $product
-                ]);
-            }
-        }
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items'           => [
+                [
+                    'price_data' => [
+                        'currency'     => 'eur',
+                        'product_data' => [
+                            'name' => 'T-shirt',
+                        ],
+                        'unit_amount'  =>'4000',
+                    ],
+                    'quantity'   => 1,
+                ]
+            ],
+            'mode'                 => 'payment',
+            'success_url'          => $this->generateUrl('success_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url'           => $this->generateUrl('cancel_url', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ]);
+    
 
-        return $this->redirectToRoute('payment', ['id' => $product->getId()]);
+        return $this->redirect($session->url, 303);
     }
 
-    /**
-     * @Route("/user/payment/orders", name="payment_orders", methods={"GET"})
-     * @param ProductManager $productManager
-     * @return Response
-     */
-    public function payment_orders(ProductManager $productManager): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
 
-        return $this->render('user/payment_story.html.twig', [
-            'user' => $this->getUser(),
-            'orders' => $productManager->getOrders($this->getUser()),
-            'sumOrder' => $productManager->countSoldeOrder($this->getUser()),
-        ]);
+
+    #[Route('/success-url', name: 'success_url')]
+    public function successUrl(): Response
+    {
+        return $this->render('payment/success.html.twig', []);
+    }
+
+
+    #[Route('/cancel-url', name: 'cancel_url')]
+    public function cancelUrl(): Response
+    {
+        return $this->render('payment/cancel.html.twig', []);
     }
 }

@@ -3,58 +3,139 @@
 {% block title %}Payment
 {% endblock %}
 
+
 {% block body %}
-	<!-- Icons Grid -->
-	<section class="features-icons bg-light text-center">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="card-body">
-						<form action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment-form">
-							<div class="form-row">
-								<div id="card-elements"></div>
-
-
-								<div id="card-errors" role="alert"></div>
+<!-- Icons Grid -->
+<section class="features-icons bg-light text-center">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="card-body">
+					<form action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment-form">
+						<div class="form-row">
+							<div id="card-elements">
+								<script src="https://js.stripe.com/v3/"></script>
 							</div>
-							<button class="btn btn-primary mt-4">
-								Acheter
-								{{ product.price }}
-								€
-							</button>
-						</form>
-
-						{# <form
-																	action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment_form">
-																	<!-- Champs hors paiement -->
-																	<input type="text" name="name" placeholder="Votre nom" required>
-																	<input type="email" name="email" placeholder="Votre email" required>
-											
-																	<!-- Champs pour le paiement -->
-																	<!-- l'attribut data-strip permet d'informer stripe du rôle de chaque input -->
-																	<input type="text" placeholder="Code de carte bleue" data-stripe="number" required> <input type="text" placeholder="MM" data-stripe="exp_month" required>
-																	<input type="text" placeholder="YY" data-stripe="exp_year" required>
-																	<input type="text" placeholder="CVC" data-stripe="cvc" required>
-											
-																	<button type="submit">Acheter{{ product.price }}</button>
-																</form> #}
 
 
-					</div>
+							<div id="card-errors" role="alert"></div>
+						</div>
+						<button class="btn btn-primary mt-4">
+							Acheter
+							{{ product.price }}
+							€
+						</button>
+					</form>
+
+
 				</div>
-				<div class="col">
-					<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-						<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
-						<h3>
-							{{ product.name }}
-						</h3>
-						<p>
-							{{ product.description }}
-						</p>
-					</div>
+			</div>
+			<div class="col">
+				<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+					<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
+					<h3>
+						{{ product.name }}
+					</h3>
+					<p>
+						{{ product.description }}
+					</p>
 				</div>
 			</div>
 		</div>
-	</section>
-{% endblock %}
-{% block javascripts %}{% endblock %}
+	</div>
+</section>
+
+
+<script>
+
+
+	{% if app_environement == 'dev' %}
+								var stripeToken = "{{ stripe_public_key_test }}";
+								{% else %}
+								var stripeToken = "{{ stripe_public_key_live }}";{% endif %}var stripe = Stripe( stripeToken)";
+								var elements = stripe.elements();
+								var subscription = "{{ product.id }}";
+								var clientSecret = "{{ intentSecret }}";
+								var cardholderName = "{{ app.user.lastname }}";
+								var cardholderEmail = "{{ app.user.email }}";
+								
+								console.log('clientSecret', clientSecret);
+								
+								var styleCustom = {
+								base: {
+								fontSize: '16px',
+								color: '#25332d'
+								}
+								}
+								
+								// Monter notre form a l'objet Stripe
+								var card = elements.create('card', {style: styleCustom});
+								card.mount("#card-elements");
+								
+								// Message Error
+								card.addEventListener('change', function (event) {
+								var displayError = document.getElementById('card-errors');
+								
+								if (event.error) {
+								displayError.textContent = event.error.message;
+								} else {
+								displayError.textContent = '';
+								}
+								});
+								
+								var form = document.getElementById('payment-form');
+								
+								form.addEventListener('submit', function (event) {
+								event.preventDefault();
+								
+								stripe.handleCardPayment(clientSecret, card, {
+								payment_method_data: {
+								billing_details: {
+								name: cardholderName,
+								email: cardholderEmail
+								}
+								}
+								}).then((result) => {
+								if (result.error) { // Display error
+								} else if ('paymentIntent' in result) {
+								console.log('Result : ', result);
+								stripeTokenHandler(result.paymentIntent);
+								console.log('Result paymentIntent : ', result.paymentIntent);
+								}
+								})
+								});
+								
+								function stripeTokenHandler(intent) {
+								var form = document.getElementById('payment-form');
+								var InputIntentId = document.createElement('input');
+								var InputIntentPaymentMethod = document.createElement('input');
+								var InputIntentStatus = document.createElement('input');
+								var InputSubscription = document.createElement('input');
+								
+								InputIntentId.setAttribute('type', 'hidden');
+								InputIntentId.setAttribute('name', 'stripeIntentId');
+								InputIntentId.setAttribute('value', intent.id);
+								
+								InputIntentPaymentMethod.setAttribute('type', 'hidden');
+								InputIntentPaymentMethod.setAttribute('name', 'stripeIntentPaymentMethod');
+								InputIntentPaymentMethod.setAttribute('value', intent.payment_method);
+								
+								InputIntentStatus.setAttribute('type', 'hidden');
+								InputIntentStatus.setAttribute('name', 'stripeIntentStatus');
+								InputIntentStatus.setAttribute('value', intent.status);
+								
+								InputSubscription.setAttribute('type', 'hidden');
+								InputSubscription.setAttribute('name', 'subscription');
+								InputSubscription.setAttribute('value', subscription);
+								
+								form.appendChild(InputIntentId);
+								form.appendChild(InputIntentPaymentMethod);
+								form.appendChild(InputIntentStatus);
+								form.appendChild(InputSubscription);
+								form.submit();
+								}
+									</script>
+		
+		
+		
+		{% endblock %}
