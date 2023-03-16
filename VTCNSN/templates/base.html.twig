@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Acceuil
+			{% endblock %}
+		</title>
+		<link rel="shartcut icon" sizes="196x196" href="assets/images/type9-removebg-preview.png" type=" image/png"/>
+		<link rel=" stylesheet" href=" https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+		<!-- Bootstrap -->
+		<link
+		href="assets/css/animate.css" rel="stylesheet">
+
+		<!-- Google Font Lato -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+		<link
+		rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+		<!-- Plugin Styles -->
+		<link
+		href="assets/css/datepicker.css" rel="stylesheet">
+
+
+		<!-- Main Styles -->
+		<link href="assets/css/styles-red.css" rel="stylesheet">
+
+
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/apple-touch-icon-144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="assets/images/apple-touch-icon-57-precomposed.png">
+		<link rel="shortcut icon" href="assets/images/favicon.png">
+
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		<!-- Feuilles de styles -->{% block stylesheets %}
+		{% endblock %}
+
+		<!-- Fichiers JS -->{% block javascripts %}
+	{% endblock %}
+
+
+	</head>
+		<body>{% block body %}
+	{% endblock %}
+
+
+</body></html>
