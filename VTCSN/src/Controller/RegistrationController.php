@@ -60,7 +60,7 @@ class RegistrationController extends AbstractController
             $mail->send(
                 'no-reply@monsite.net',
                 $user->getEmail(),
-                'Activation de votre compte sur le site e-commerce',
+                'Activation de votre compte sur le site VTCSN',
                 'register',
                 compact('user', 'token')
             );
@@ -135,7 +135,7 @@ class RegistrationController extends AbstractController
         $mail->send(
             'no-reply@monsite.net',
             $user->getEmail(),
-            'Activation de votre compte sur le site e-commerce',
+            'Activation de votre compte sur le site VTCSN',
             'register',
             compact('user', 'token')
         );
