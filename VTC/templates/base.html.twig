@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Car|Rental Landingpage</title>
+
+		<!-- Bootstrap -->
+		<link
+		href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link
+		href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
+
+		<!-- Google Font Lato -->
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+		<!-- Plugin Styles -->
+		<link
+		href="{{asset('assets/css/datepicker.css')}}" rel="stylesheet">
+
+
+		<!-- Main Styles -->
+		<link href="{{asset('assets/css/styles-red.css')}}" rel="stylesheet">
+		<!-- Available main styles: styles-red.css, styles-green.css -->
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+						    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+						    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+						    <link href="css/ie8fix.css" rel="stylesheet">
+						    <link href='http://fonts.googleapis.com/css?family=Lato:400' rel='stylesheet' type='text/css'>
+						    <link href='http://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+						    <link href='http://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'>
+						    <![endif]-->
+
+
+		<!-- Fav and touch icons -->
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('build/imgages/ico/apple-touch-icon-144-precomposed.png')}}"> <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
+		<link rel="shortcut icon" href="img/ico/favicon.png">
+
+	</head>
+	<body>
+		{% include "_partials/_nav.html.twig" %}
+		{% include "_partials/_flach.html.twig" %}
+		{% block body %}{% endblock %}
+		{% include "_partials/_footer.html.twig" %}<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --><script src="{{asset('assets/js/jquery-1.11.0.min.js')}}"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+
+
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="{{asset('assets/js/jquery-1.11.0.min.js')}}"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+		<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+		<script src="{{asset('assets/js/jquery.autocomplete.min.js')}}"></script>
+		<script src="{{asset('assets/js/jquery.placeholder.js')}}"></script>
+		<script src="{{asset('assets/js/locations-autocomplete.j')}}s"></script>
+		<script src="{{asset('assets/js/bootstrap-datepicker.js')}}"></script>
+		<script src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+		<script src="{{asset('assets/js/gmap3.min.js')}}"></script>
+
+
+		<!--[if !(gte IE 8)]><!-->
+		<script src="{{asset('assets/js/wow.min.js')}}"></script>
+		<script>
+			// Initialize WOW
+// -------------------------------------------------------------
+new WOW({mobile: false}).init();
+		</script>
+		<!--<![endif]-->
+
+		<script src="{{asset('assets/js/custom.js')}}"></script>
+
+	</body>
+
+
+</html>
