@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Newsletters
+{% endblock %}
+
+{% block body %}
+	<a class="btn btn-info" href="{{path('admin_newsletters_prepare')}}">Ajouter  newsletter</a>
+	<div class="container">
+		<fieldset class="fieldset">
+
+			<h1>Liste des newsletters</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Titre</th>
+						<th>Date</th>
+						<th>Catégorie</th>
+						<th>Inscrits</th>
+
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for newsletter in newsletters %}
+						<tr>
+							<td>{{newsletter.id}}</td>
+							<td>{{newsletter.name}}</td>
+							<td>{{newsletter.createdAt|date}}</td>
+							<td>{{newsletter.categories.name}}</td>
+
+							<td>{{newsletter.categories.users|length}}</td>
+
+							<td>
+								{% if newsletter.isSent == false %}
+									<a href="{{ path('admin_newsletters_send', {id: newsletter.id}) }}" class="btn btn-success">Envoyer</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</fieldset>
+
+
+	</div>
+
+{% endblock %}
