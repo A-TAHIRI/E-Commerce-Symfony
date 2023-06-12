@@ -13,8 +13,9 @@
 						<form action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment-form">
 							<div class="form-row">
 								<div id="card-elements"></div>
+                                  
 
-
+             
 								<div id="card-errors" role="alert"></div>
 							</div>
 							<button class="btn btn-primary mt-4">
@@ -25,26 +26,26 @@
 						</form>
 
 						{# <form
-																	action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment_form">
-																	<!-- Champs hors paiement -->
-																	<input type="text" name="name" placeholder="Votre nom" required>
-																	<input type="email" name="email" placeholder="Votre email" required>
-											
-																	<!-- Champs pour le paiement -->
-																	<!-- l'attribut data-strip permet d'informer stripe du rôle de chaque input -->
-																	<input type="text" placeholder="Code de carte bleue" data-stripe="number" required> <input type="text" placeholder="MM" data-stripe="exp_month" required>
-																	<input type="text" placeholder="YY" data-stripe="exp_year" required>
-																	<input type="text" placeholder="CVC" data-stripe="cvc" required>
-											
-																	<button type="submit">Acheter{{ product.price }}</button>
-																</form> #}
+																													action="{{ path("subscription_paiement", {'id': product.id }) }}" method="post" id="payment_form">
+																													<!-- Champs hors paiement -->
+																													<input type="text" name="name" placeholder="Votre nom" required>
+																													<input type="email" name="email" placeholder="Votre email" required>
+																							
+																													<!-- Champs pour le paiement -->
+																													<!-- l'attribut data-strip permet d'informer stripe du rôle de chaque input -->
+																													<input type="text" placeholder="Code de carte bleue" data-stripe="number" required> <input type="text" placeholder="MM" data-stripe="exp_month" required>
+																													<input type="text" placeholder="YY" data-stripe="exp_year" required>
+																													<input type="text" placeholder="CVC" data-stripe="cvc" required>
+																							
+																													<button type="submit">Acheter{{ product.price }}</button>
+																												</form> #}
 
 
 					</div>
 				</div>
 				<div class="col">
 					<div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-						<img src="{{ asset('assets/uploads/products/mini/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
+						<img src="{{ asset('build/images/products/mini/300x300-' ~ product.images[0].name ) }}" class="card-img-top" alt="{{ product.name }}">
 						<h3>
 							{{ product.name }}
 						</h3>
@@ -57,4 +58,16 @@
 		</div>
 	</section>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+<script src="https://js.stripe.com/v3"></script>
+	
+	
+
+	
+	
+
+ <script src="{{asset('build/js/paiment.js')}}"></script>
+
+
+
+{% endblock %}
