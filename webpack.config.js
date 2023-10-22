@@ -14,6 +14,14 @@ Encore
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
+    .addAliases({
+        'App': `${__dirname}/assets/js`,
+        'paiment': `${__dirname}/assets/js/paiment`,
+        'Style': `${__dirname}/assets/styles`,
+        'v3': `${__dirname}/assets/js/v3`
+    })
+
+
     /*
      * ENTRY CONFIG
      *
@@ -21,6 +29,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('images', './assets/js/images.js')
+    .addEntry('paiment', './assets/js/paiment.js')
+    .addEntry('v3', './assets/js/v3.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -58,6 +69,12 @@ Encore
 
     // enables Sass/SCSS support
     //.enableSassLoader()
+    
+     // enabled Vue js with Jsx
+    /*.enableVueLoader(() => {}, {
+        useJsx: true
+    })
+    */
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
